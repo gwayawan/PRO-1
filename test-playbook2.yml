@@ -1,0 +1,27 @@
+---
+
+- name: Cisco show version example
+  hosts: cisco
+  gather_facts: false
+
+  tasks:
+    - name: run show version on the routers
+      cisco.ios.ios_command:
+        commands: show version | incl Version
+      register: output
+
+    - name: print output
+      debug:
+        var: output.stdout_lines
+
+
+    - name: run show ip et int
+      cisco.ios.ios_command:
+        commands: show ip int brief
+      register: output
+
+    - name: print output
+      debug:
+        var: output.stdout_lines
+
+    
