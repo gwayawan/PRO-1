@@ -1,0 +1,8 @@
+---
+
+ansible_user: valkia
+ansible_password: Elowen2019
+ansible_become: yes
+ansible_become_method: enable
+ansible_become_password: Elowen2019
+

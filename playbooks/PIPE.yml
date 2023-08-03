@@ -1,0 +1,32 @@
+---
+ - name: Deploy React App Front-end Build
+   connection: ssh
+   gather_facts: True
+   hosts: ComputerLu
+   vars:
+     repo_folder: /home/emmalu/github-deployment/repos/
+     live_folder: /home/emmalu/my_app/build
+     repo_name: gwayawan/coding
+
+     tasks:
+      - git:
+          repo: ssh://git@github.com/{{ repo_name }}.git
+          dest: "{{ repo_folder }}"
+          update: yes
+      - name: Install dependencies
+        yarn:
+         path: "{{ repo_folder }}"
+      - name: Build project
+        command: yarn build
+        args:
+          chdir: "{{ repo_folder }}"
+
+      - name: Copy build to live directory
+        command: cp -TRv build {{ live_folder }}
+        args:
+          chdir: "{{ repo_folder }}"
+
+
+
+
+

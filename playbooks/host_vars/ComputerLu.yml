@@ -1,0 +1,8 @@
+---
+
+ansible_user: emmalu
+ansible_password: remote_host_password
+ansible_become: yes
+ansible_become_method: sudo
+ansible_become_password: Elowen2019
+ansible_connection: ssh

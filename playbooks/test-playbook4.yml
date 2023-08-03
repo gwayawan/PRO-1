@@ -1,0 +1,26 @@
+---
+
+- name: Cisco show version example
+  hosts: R1
+  gather_facts: false
+
+  tasks:
+    - name: configure interface settings
+      cisco.ios.ios_config:
+        lines:
+        - description loop39 interface
+        - ip address 139.139.139.139 255.255.255.255
+        parents: interface Loopback111
+
+
+    - name: run show ip et int
+      cisco.ios.ios_command:
+        commands: show ip int brief
+      register: output
+
+
+    - name: print output
+      debug:
+        var: output.stdout_lines
+
+    

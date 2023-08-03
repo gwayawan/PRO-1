@@ -1,0 +1,45 @@
+---
+
+- name: Cisco show version example
+  hosts: R1
+  gather_facts: false
+
+  tasks:
+    - name: run show version on the routers
+      cisco.ios.ios_command:
+        commands: show version | incl Version
+      register: output
+
+    - name: print output
+      debug:
+        var: output.stdout_lines
+
+
+    - name: run show ip et int
+      cisco.ios.ios_command:
+        commands: show ip int brief
+      register: output
+
+    - name: Merge provided configuration with device configuration
+      cisco.ios.ios_interfaces:
+        config:
+        - name: Loopback113
+          description: Configured and Merged by Ansible Network
+          enabled: true
+        - name: Loopback114
+          description: Configured and Merged by Ansible Network
+          enabled: True
+        state: merged
+
+
+    - name: run show ip et int
+      cisco.ios.ios_command:
+        commands: show ip int brief
+      register: output
+
+
+    - name: print output
+      debug:
+        var: output.stdout_lines
+
+    
