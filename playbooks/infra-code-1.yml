@@ -1,0 +1,26 @@
+---
+
+- name: Cisco show version example
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - name: push config file
+      cisco.ios.ios_config:
+        src: "/home/valkia/CONFIG-TEST/config.txt"
+
+
+    - name: run show ip et int
+      cisco.ios.ios_command:
+        commands: show snmp community
+      register: output
+
+
+    - name: print output
+      debug:
+        var: output.stdout_lines
+
+
+    - name: saves running-config
+      cisco.ios.ios_config:
+        save_when: modified
